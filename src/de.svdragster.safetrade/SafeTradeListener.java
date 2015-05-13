@@ -15,8 +15,7 @@ import net.canarymod.api.inventory.Item;
 import net.canarymod.api.inventory.ItemType;
 import net.canarymod.api.inventory.slot.GrabMode;
 import net.canarymod.api.inventory.slot.SecondarySlotType;
-import net.canarymod.chat.Colors;
-import net.canarymod.chat.TextFormat;
+import net.canarymod.chat.ChatFormat;
 import net.canarymod.hook.HookHandler;
 import net.canarymod.hook.player.ConnectionHook;
 import net.canarymod.hook.player.DisconnectionHook;
@@ -58,7 +57,7 @@ public class SafeTradeListener implements PluginListener {
 		ItemFactory ifactory = Canary.factory().getItemFactory();
 		for (int i=0; i<Line.length; i++) {
 			Item line = ifactory.newItem(ItemType.Stone);
-			line.setDisplayName(Colors.GRAY + "Line");
+			line.setDisplayName(ChatFormat.GRAY + "Line");
 			line.setAmount(1);
 			line.setSlot(Line[i]);
 			inv.setSlot(line);
@@ -114,12 +113,12 @@ public class SafeTradeListener implements PluginListener {
 		Item item1 = inv.getSlot(0);
 		item1.setDamage(14);
 		String[] text1 = item1.getDisplayName().split(":");
-		item1.setDisplayName(Colors.LIGHT_GREEN + text1[0] + ": Click here if you are ready");
+		item1.setDisplayName(ChatFormat.GREEN + text1[0] + ": Click here if you are ready");
 		inv.update();
 		Item item2 = inv.getSlot(53);
 		item2.setDamage(14);
 		String[] text2 = item2.getDisplayName().split(":");
-		item2.setDisplayName(Colors.LIGHT_GREEN + text2[0] + ": Click here if you are ready");
+		item2.setDisplayName(ChatFormat.GREEN + text2[0] + ": Click here if you are ready");
 		inv.update();
 	}
 	
@@ -131,7 +130,7 @@ public class SafeTradeListener implements PluginListener {
 				RedWool.setAmount(1);
 				RedWool.setDamage(14);
 				RedWool.setSlot(0);
-				RedWool.setDisplayName(Colors.LIGHT_GREEN + player.getName() + ": Click here if you are ready");
+				RedWool.setDisplayName(ChatFormat.GREEN + player.getName() + ": Click here if you are ready");
 				inv.setSlot(RedWool);
 			}
 			
@@ -140,7 +139,7 @@ public class SafeTradeListener implements PluginListener {
 				RedWool.setAmount(1);
 				RedWool.setDamage(14);
 				RedWool.setSlot(53);
-				RedWool.setDisplayName(Colors.LIGHT_GREEN + player.getName() + ": Click here if you are ready");
+				RedWool.setDisplayName(ChatFormat.GREEN + player.getName() + ": Click here if you are ready");
 				inv.setSlot(RedWool);
 			}
 		} else {
@@ -149,7 +148,7 @@ public class SafeTradeListener implements PluginListener {
 				GreenWool.setAmount(1);
 				GreenWool.setDamage(5);
 				GreenWool.setSlot(0);
-				GreenWool.setDisplayName(Colors.RED + player.getName() + ": Click here if you are not ready");
+				GreenWool.setDisplayName(ChatFormat.RED + player.getName() + ": Click here if you are not ready");
 				inv.setSlot(GreenWool);
 			}
 			
@@ -158,7 +157,7 @@ public class SafeTradeListener implements PluginListener {
 				GreenWool.setAmount(1);
 				GreenWool.setDamage(5);
 				GreenWool.setSlot(53);
-				GreenWool.setDisplayName(Colors.RED + player.getName() + ": Click here if you are not ready");
+				GreenWool.setDisplayName(ChatFormat.RED + player.getName() + ": Click here if you are not ready");
 				inv.setSlot(GreenWool);
 			}
 		}	
@@ -169,10 +168,10 @@ public class SafeTradeListener implements PluginListener {
 		String player1 = tempplayer1[0];
 		String[] tempplayer2 = inv.getSlot(53).getDisplayName().split(":");
 		String player2 = tempplayer2[0];
-		Player p1 = Canary.getServer().getPlayer(TextFormat.removeFormatting(player1)); // I'm running out of names
-		Player p2 = Canary.getServer().getPlayer(TextFormat.removeFormatting(player2));
-		p1.message(Colors.GREEN + "--Trade with " + p2.getName() + " successful!--");
-		p2.message(Colors.GREEN + "--Trade with " + p1.getName() + " successful!--");
+		Player p1 = Canary.getServer().getPlayer(ChatFormat.removeFormatting(player1)); // I'm running out of names
+		Player p2 = Canary.getServer().getPlayer(ChatFormat.removeFormatting(player2));
+		p1.message(ChatFormat.DARK_GREEN + "--Trade with " + p2.getName() + " successful!--");
+		p2.message(ChatFormat.DARK_GREEN + "--Trade with " + p1.getName() + " successful!--");
 		ObjectFactory ofactory = Canary.factory().getObjectFactory();
 		Inventory inv1 = ofactory.newCustomStorageInventory("Traded items", 4);
 		Inventory inv2 = ofactory.newCustomStorageInventory("Traded items", 4);
@@ -222,12 +221,12 @@ public class SafeTradeListener implements PluginListener {
 			String TempRequest = clicker.getName() + ";" + accepter.getName();
 			if (!TradeRequests.contains(TempRequest)) {
 				TradeRequests.add(TempRequest);
-				clicker.message(Colors.GREEN + "Trade request to " + accepter.getName() + " sent.");
-				accepter.message(Colors.GREEN + clicker.getName() + " wants to trade with you! Rightclick him to accept.");
+				clicker.message(ChatFormat.DARK_GREEN + "Trade request to " + accepter.getName() + " sent.");
+				accepter.message(ChatFormat.DARK_GREEN + clicker.getName() + " wants to trade with you! Rightclick him to accept.");
 			} else {
 				TradeRequests.remove(TempRequest);
-				clicker.message(Colors.RED + "Trade request to " + accepter.getName() + " cancelled.");
-				accepter.message(Colors.RED + clicker.getName() + " doesn't want to trade with you anymore.");
+				clicker.message(ChatFormat.RED + "Trade request to " + accepter.getName() + " cancelled.");
+				accepter.message(ChatFormat.RED + clicker.getName() + " doesn't want to trade with you anymore.");
 			}
 		}
 	}
@@ -287,7 +286,7 @@ public class SafeTradeListener implements PluginListener {
 			if (hook.getItem() != null) {
 				/** The Items seperating the places where players put their items */
 				Item item = hook.getItem();
-				if (item.getDisplayName().equalsIgnoreCase(Colors.GRAY + "Line")) {
+				if (item.getDisplayName().equalsIgnoreCase(ChatFormat.GRAY + "Line")) {
 					hook.setCanceled();
 				}
 			}
@@ -409,7 +408,7 @@ public class SafeTradeListener implements PluginListener {
 		String result = response.toString();
 		if (result.contains(MYIDSTART) && result.contains(MYIDEND)) {
 			int endPos = result.indexOf(MYIDEND);
-			result = Colors.ORANGE + "<SafeTrade> "+ Colors.GREEN + "Update available at: " + Colors.WHITE + result.substring(MYIDSTART.length(), endPos);
+			result = ChatFormat.GOLD + "<SafeTrade> "+ ChatFormat.DARK_GREEN + "Update available at: " + ChatFormat.WHITE + result.substring(MYIDSTART.length(), endPos);
 		}
 		
 		return result;
