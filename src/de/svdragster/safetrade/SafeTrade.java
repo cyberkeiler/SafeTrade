@@ -12,6 +12,7 @@ public class SafeTrade extends Plugin {
 
 	@Override
 	public boolean enable() {
+		getLogman().info("Enabling "+getName() + " " + getVersion()+" by "+getAuthor());
 		Canary.hooks().registerListener(new SafeTradeListener(), this);
 		return true;
 	}

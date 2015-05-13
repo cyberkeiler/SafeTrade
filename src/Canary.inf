@@ -1,0 +1,4 @@
+main-class = de.svdragster.safetrade.SafeTrade
+name = SafeTrade
+author = svdragster
+version = 1.111
